@@ -1,0 +1,19 @@
+version: 2
+
+sources:
+  - name: glamira_raw 
+    project: adept-fountain-478902-b3 
+    dataset: glamira_raw_ca 
+    
+    tables:
+      - name: customer_behaviour
+        identifier: customer_behaviour
+        description: "Dữ liệu hành vi người dùng (Raw)"
+
+      - name: ip_location_k
+        identifier: ip_location_k
+        description: "Bảng tra cứu IP sang địa lý"
+
+      - name: product_detail_raw
+        identifier: product_detail_raw
+        description: "Thông tin chi tiết sản phẩm"

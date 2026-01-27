@@ -114,4 +114,6 @@
 
     "scm.defaultViewMode": "tree",
     "extensions.ignoreRecommendations": true,
+    "dbt.enableNewLineagePanel": true,
+    "dbt.lineage.defaultExpansion": 2,
 }

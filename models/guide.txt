@@ -1,0 +1,19 @@
+RAW DATA:
+=====================
+- glamira
+MARTS:
+=====================
+STAGING 
+fct_sales_orders
+  KEYS: 
+        - order_date_key
+        - customer_key
+        - bill_to_address_key
+        - product_key
+        - store_key
+dim_customer (customer_key)
+dim_product (product_key)
+dim_address  (bill_to_address_key)
+dim_date (order_date_key)
+dim_store (store_key)
+
