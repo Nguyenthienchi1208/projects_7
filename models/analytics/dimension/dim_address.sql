@@ -13,10 +13,10 @@ WITH stg_address AS (
 
 final AS (
     SELECT 
-        location_key,
-        MAX(country_long) AS country,
-        MAX(region) AS region,
-        MAX(city) AS city
+        COALESCE(location_key, -1) AS location_key,
+        COALESCE(MAX(country_long), 'undefined') AS country,
+        COALESCE(MAX(region), 'undefined') AS region,
+        COALESCE(MAX(city), 'undefined') AS city
     FROM stg_address
     GROUP BY 1
 )

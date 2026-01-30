@@ -1,0 +1,58 @@
+version: 2
+
+models:
+  # --- DIM PRODUCT ---
+  - name: dim_product
+    columns:
+      - name: product_key
+        tests:
+          - unique
+          - not_null
+
+      - name: product_name
+        tests:
+          - not_null
+
+  # --- DIM CUSTOMER ---
+  - name: dim_customer
+    columns:
+      - name: customer_key
+        tests:
+          - unique
+          - not_null
+
+      - name: email_address
+        tests:
+          - not_null
+
+  # --- DIM STORE ---
+  - name: dim_store
+    columns:
+      - name: store_key
+        tests:
+          - unique
+          - not_null
+
+  # --- DIM ADDRESS ---
+  - name: dim_address
+    columns:
+      - name: location_key
+        tests:
+          - unique
+          - not_null
+      
+      - name: city
+        tests:
+          - not_null
+      
+      - name: country
+        tests:
+          - not_null
+
+  # --- DIM DATE ---
+  - name: dim_date
+    columns:
+      - name: date_key
+        tests:
+          - unique
+          - not_null

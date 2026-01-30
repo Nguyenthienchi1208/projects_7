@@ -8,7 +8,6 @@ WITH source_data AS (
     FROM {{ source('glamira_raw', 'customer_behaviour') }}
     WHERE 
         collection = 'checkout_success'
-        AND time_stamp IS NOT NULL
 ),
 
 date_conversion AS (

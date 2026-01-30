@@ -1,0 +1,25 @@
+version: 2
+
+models:
+  - name: fact_sales_order
+    columns:
+      - name: sales_order_key
+        tests:
+          - not_null
+      - name: customer_key
+        tests:
+          - not_null
+      - name: product_key
+        tests:
+          - not_null
+
+      - name: date_key
+        tests:
+          - not_null
+
+      - name: unit_price_usd
+        tests:
+          - not_null
+      - name: quantity
+        tests:
+          - not_null

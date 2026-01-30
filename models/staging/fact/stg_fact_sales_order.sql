@@ -1,5 +1,5 @@
 {{ config(
-    materialized='table'
+    materialized='view'
 ) }}
 
 WITH raw_base AS (
@@ -9,6 +9,7 @@ WITH raw_base AS (
         cb.ip, 
         cb.store_id AS store_key,
         cb.current_url, 
+        -- Sửa logic date_key để an toàn hơn
         SAFE_CAST(FORMAT_DATE('%Y%m%d', DATE(TIMESTAMP_SECONDS(SAFE_CAST(cb.time_stamp AS INT64)))) AS INT64) AS date_key,
         SAFE_CAST(cart.product_id AS INT64) AS product_key,
         SAFE_CAST(cart.amount AS INT64) AS quantity,
@@ -46,7 +47,6 @@ currency_exchange_mapping AS (
         *,
         SAFE_CAST(clean_numeric_str AS NUMERIC) AS local_unit_price,
         CASE 
-            -- Nhóm Bắc Âu dùng chung 'kr' nhưng khác tỷ giá và mã ISO
             WHEN raw_currency_symbol = 'kr' THEN 
                 CASE 
                     WHEN current_url LIKE '%glamira.se%' THEN STRUCT(0.095 AS rate, 'SEK' AS code)
@@ -54,7 +54,6 @@ currency_exchange_mapping AS (
                     WHEN current_url LIKE '%glamira.no%' THEN STRUCT(0.094 AS rate, 'NOK' AS code)
                     ELSE STRUCT(0.10 AS rate, 'SEK' AS code) 
                 END
-            
             WHEN raw_currency_symbol IN ('£') THEN STRUCT(1.27 AS rate, 'GBP' AS code)
             WHEN raw_currency_symbol IN ('€') THEN STRUCT(1.09 AS rate, 'EUR' AS code)
             WHEN raw_currency_symbol IN ('$', 'USD $', 'USD') THEN STRUCT(1.0 AS rate, 'USD' AS code)
@@ -83,7 +82,7 @@ currency_exchange_mapping AS (
             WHEN raw_currency_symbol IN ('₺') THEN STRUCT(0.031 AS rate, 'TRY' AS code)
             WHEN raw_currency_symbol IN ('￥') THEN STRUCT(0.0067 AS rate, 'JPY' AS code)
             WHEN raw_currency_symbol IN ('DOP $') THEN STRUCT(0.017 AS rate, 'DOP' AS code)
-            WHEN raw_currency_symbol IN (' din.') THEN STRUCT(0.0093 AS rate, 'RSD' AS code)
+            WHEN raw_currency_symbol IN ('din.') THEN STRUCT(0.0093 AS rate, 'RSD' AS code) -- Đã xóa dấu cách thừa
             WHEN raw_currency_symbol IN ('CHF') THEN STRUCT(1.13 AS rate, 'CHF' AS code)
             WHEN raw_currency_symbol IN ('HKD $') THEN STRUCT(0.13 AS rate, 'HKD' AS code)
             WHEN raw_currency_symbol IN ('CRC ₡') THEN STRUCT(0.0019 AS rate, 'CRC' AS code)
@@ -106,7 +105,7 @@ location_mapping AS (
         c.*,
         map.location_key AS bill_to_address_key
     FROM currency_exchange_mapping c
-    LEFT JOIN `adept-fountain-478902-b3.glamira_raw_ca.map_ip_to_location` map ON c.ip = map.ip
+    LEFT JOIN {{ ref("base_stg_src_raw_ip_location") }} map ON c.ip = map.ip
 )
 
 SELECT 
@@ -122,5 +121,5 @@ SELECT
     raw_currency_symbol,
     conv.code AS currency_iso_code,
     local_unit_price,
-    ROUND(local_unit_price * conv.rate, 2) AS unit_price_usd,
+    ROUND(local_unit_price * conv.rate, 2) AS unit_price_usd 
 FROM location_mapping

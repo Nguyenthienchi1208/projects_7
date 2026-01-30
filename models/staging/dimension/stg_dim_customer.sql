@@ -4,16 +4,12 @@
 
 WITH source_data AS (
     SELECT 
-        CAST(user_id_db AS INT64) AS customer_key,
+        SAFE_CAST(user_id_db AS INT64) AS customer_key,
         email_address,
         user_agent,
         resolution,
-        device_Id AS device_id
+        device_id
     FROM {{ source('glamira_raw', 'customer_behaviour') }}
-    WHERE 
-        collection = 'checkout_success'
-        AND user_id_db IS NOT NULL 
-        AND user_id_db <> ''
 ),
 
 final AS (

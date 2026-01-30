@@ -21,8 +21,7 @@ models:
   dec_project2:
     staging:
       +materialized: view
-      fact:
-        +materialized: table
+      +schema: stg
     analytics:
       +materialized: table
-      +schema: glamira_dwh
+      +schema: dwh
