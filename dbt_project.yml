@@ -25,3 +25,6 @@ models:
     analytics:
       +materialized: table
       +schema: dwh
+    scd:
+      +materialized: table
+      +schema: sns
