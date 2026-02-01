@@ -29,7 +29,6 @@ Tables:
 - Được build bằng dbt
 - materialized = 'view'
 - Chuẩn hóa tên cột và kiểu dữ liệu
-- Không áp dụng logic nghiệp vụ phức tạp
 
 Tables:
 - stg_dim_customers
@@ -54,7 +53,9 @@ Fact table:
 - fact_sales_order
 - Diagram of this model - Starschema: https://dbdiagram.io/d/695ce81339fa3db27b3a99c2
 <img width="385" height="306" alt="image" src="https://github.com/user-attachments/assets/ae17db61-c179-4099-bbf3-1c66525461f8" />
+
 ---
+
 ## 4. Công nghệ sử dụng
 - VM Intance
 - Google Cloud Storage (GCS)
@@ -62,7 +63,9 @@ Fact table:
 - dbt
 - SQL
 - Git
+
 ---
+
 ## 5. Dashboard
 - Looker Dashboard: https://lookerstudio.google.com/reporting/d8f464ac-e46a-45ae-a707-d6eb6d1ed71f
 
