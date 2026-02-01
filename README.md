@@ -43,13 +43,15 @@ Tables:
 - Áp dụng mô hình Star Schema
 - materialized = 'table'
 - Sử dụng natural key / business key
-Dimension tables
+
+Dimension tables:
 - dim_customers
 - dim_address
 - dim_store
 - dim_product
 - dim_date
-Fact table
+
+Fact table:
 - fact_sales_order
 - Diagram of this model - Starschema: https://dbdiagram.io/d/695ce81339fa3db27b3a99c2
 <img width="385" height="306" alt="image" src="https://github.com/user-attachments/assets/ae17db61-c179-4099-bbf3-1c66525461f8" />
