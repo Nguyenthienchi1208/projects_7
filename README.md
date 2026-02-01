@@ -12,20 +12,14 @@
 ---
 
 ## 2. Tổng quan kiến trúc dữ liệu
-VM Intance (Raw Data)
-↓
-GCS (Data Storage)
-↓
-BigQuery Dataset: glamira_raw_ca
-↓
-dbt Staging Layer (View)
-↓
-BigQuery Dataset: glamira_raw_ca_stg
-↓
-dbt Data Warehouse Layer (Star Schema - View)
-↓
-BigQuery Dataset: glamira_raw_ca_dwh
-
+<img width="530" height="243" alt="image" src="https://github.com/user-attachments/assets/68896f6a-2b82-4132-b120-3ce5de1320d3" />
+VM Instance (Raw Data)
+  -> GCS (Data Storage)
+  -> BigQuery Dataset: glamira_raw_ca
+  -> dbt Staging Layer (View)
+  -> BigQuery Dataset: glamira_raw_ca_stg
+  -> dbt Data Warehouse Layer (Star Schema - View)
+  -> BigQuery Dataset: glamira_raw_ca_dwh
 ---
 
 ## 3. BigQuery Datasets và Tables
